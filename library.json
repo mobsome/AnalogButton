@@ -1,0 +1,13 @@
+{
+  "name": "AnalogButton",
+  "keywords": "arduino, ADC, esp2866",
+  "description": "Analog input based multiple buttons library",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/mobsome/AnalogButton.git"
+  },
+  "frameworks": "arduino",
+  "platforms": "espressif, arduino",
+  "version": "1.0"
+}

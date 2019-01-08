@@ -1,0 +1,23 @@
+#######################################
+# Syntax Coloring Map For AnalogButton
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+AnalogButton	KEYWORD1
+AnalogButtons	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+check	KEYWORD2
+add_button	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+#	LITERAL1

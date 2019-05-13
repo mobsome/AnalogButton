@@ -30,20 +30,33 @@ namespace analog_button
 class AnalogButton
 {
 public:
-  typedef std::function<void(void)> Handler;
+  typedef std::function<void(uint8_t)> Handler;
+  /**
+   * Button was pressed.
+   */
+  static const uint8_t EventPressed = 0;
+  /**
+   * Button was released.
+   */
+  static const uint8_t EventReleased = 1;
+  /**
+   * Button was clicked.
+   */
+  static const uint8_t EventClicked = 2;
+  /**
+   * Button was long pressed.
+   */
+  static const uint8_t EventLongPressed  = 2;
 
   /**
    * C-tor
    * 
    * @param a_range_begin button value range start [0, a_range_end]
    * @param a_range_end button value range end [a_range_begin, 1024]
-   * @param a_click_handler button click event handler
-   * @param a_long_press_handler button long press event handler
+   * @param a_handler button events handler
    */
-  AnalogButton(uint16_t a_range_begin, uint16_t a_range_end,
-              Handler a_click_handler, Handler a_long_press_handler = 0)
-  : range_begin(a_range_begin), range_end(a_range_end), pressed(false),
-    click_handler(a_click_handler), long_press_handler(a_long_press_handler)
+  AnalogButton(uint16_t a_range_begin, uint16_t a_range_end, Handler a_handler)
+  : range_begin(a_range_begin), range_end(a_range_end), pressed(false), handler(a_handler)
   {
   }
 
@@ -64,6 +77,10 @@ public:
   void on_pressed()
   {
     pressed = true;
+    if (handler)
+    {
+      handler(EventPressed);
+    }
   }
 
   /**
@@ -73,6 +90,10 @@ public:
   {
     pressed = false;
     long_pressed = false;
+    if (handler)
+    {
+      handler(EventReleased);
+    }
   }
 
   /**
@@ -100,9 +121,9 @@ public:
    */
   void on_clicked()
   {
-    if (click_handler)
+    if (handler)
     {
-      click_handler();
+      handler(EventClicked);
     }
   }
 
@@ -111,11 +132,11 @@ public:
    */
   void on_long_pressed()
   {
-    if (long_press_handler)
-    {
-      long_press_handler();
-    }
     long_pressed = true;
+    if (handler)
+    {
+      handler(EventLongPressed);
+    }
   }
 
 private:
@@ -123,8 +144,7 @@ private:
   uint16_t range_end;
   bool pressed;
   bool long_pressed;
-  Handler click_handler;
-  Handler long_press_handler;
+  Handler handler;
 };
 }
 #endif

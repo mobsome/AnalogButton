@@ -142,9 +142,9 @@ public:
 private:
   uint16_t range_begin;
   uint16_t range_end;
-  bool pressed;
-  bool long_pressed;
-  Handler handler;
+  bool pressed = false;
+  bool long_pressed = false;
+  Handler handler = 0;
 };
 }
 #endif
